@@ -1,0 +1,19 @@
+projection;
+strict ( 2 );
+
+define behavior for ZC_PurchaseHeaderTP_UM_R19 alias PurchaseHeader
+{
+  use create;
+  use update;
+  use delete;
+
+  use association _PoItems { create; }
+}
+
+define behavior for ZC_PurchaseItemTP_UM_R19 alias PurchaseItem
+{
+  use update;
+  use delete;
+
+  use association _PoHeader;
+}

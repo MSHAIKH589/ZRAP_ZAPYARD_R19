@@ -1,0 +1,8 @@
+@EndUserText.label: 'Purchase Orders Unmanaged Service'
+define service Z_PurchaseOrder_UM {
+  expose ZC_PurchaseHeaderTP_UM_R19 as PurchaseOrders;
+  expose ZC_PurchaseItemTP_UM_R19 as PurchaseItems;
+  expose ZC_ORDERTYPE_R19 as OrderType;
+  expose ZC_SUPPLIER_R19 as Supplier;
+  expose ZC_PURCHASESTATUS_R19 as OrderStatus;
+}

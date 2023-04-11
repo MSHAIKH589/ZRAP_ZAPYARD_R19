@@ -1,0 +1,78 @@
+managed implementation in class zbp_c_purchaseheaderdet_r19 unique;
+strict ( 2 );
+with draft;
+define behavior for ZC_PurchaseHeaderDet_R19 alias PurchaseHeader
+persistent table zpoheader_db_r19
+draft table zpoheader_d_r19
+early numbering
+lock master
+total etag local_last_changed_at1
+authorization master ( instance )
+etag master ChangedDateTime
+{
+  field ( readonly ) PoOrder;
+  create;
+  update;
+  delete;
+  association _PoItems { create; with draft; }
+
+  action Copy result [1] $self;
+  action WithdrawStatus result [1] $self;
+
+  validation checkstatus on save { field PurchaseStatus; create; }
+
+  draft action Edit;
+  draft action Discard;
+  draft action Resume;
+  draft action Activate;
+  draft determine action Prepare { validation checkstatus; }
+
+  mapping for zpoheader_db_r19
+  {
+    PoOrder = po_order;
+    PoDesc  = po_desc;
+    PoType  = po_type;
+    CompCode = comp_code;
+    PoOrg = po_org;
+    PurchaseStatus = po_status;
+    Supplier = supplier;
+    Imageurl = imageurl;
+    CreateBy = create_by;
+    CreatedDateTime = created_date_time;
+    ChangedDateTime = changed_date_time;
+    LocalLastChangedBy = local_last_changed_by;
+    local_last_changed_at = local_last_changed_at;
+    local_last_changed_at1 = local_last_changed_at1;
+  }
+}
+
+define behavior for ZC_PurchaseItemDet_R19 alias PurchaseItem
+implementation in class zbp_c_purchaseitem_r19 unique
+persistent table ZPOITEMS_DB_R19
+draft table ZPOITEMS_D_R19
+early numbering
+lock dependent by _PoHeader
+authorization dependent by _PoHeader
+etag master LocalLastChangedAt
+{
+  update;
+  delete;
+  field ( readonly ) PoOrder, PoItem;
+  association _PoHeader { with draft; }
+
+  mapping for ZPOITEMS_DB_R19
+  {
+    PoOrder = po_order;
+    PoItem  = po_item;
+    ShortText = short_text;
+    Material = material;
+    Plant = plant;
+    MatGroup = mat_group;
+    OrderQunt = order_qunt;
+    OrderUnit = order_unit;
+    ProductPrice = product_price;
+    PriceUnit = price_unit;
+    LocalLastChangedBy = local_last_changed_by;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+}

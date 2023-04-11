@@ -1,0 +1,13 @@
+@EndUserText.label: 'Auth Items CDS'
+@MappingRole: true
+define role ZI_PURCHASEITEMTP_UM_R19 {
+    grant
+        select
+            on
+                ZI_PURCHASEITEMTP_UM_R19                     
+                       where
+//                       ( Plant )
+//                       = aspect pfcg_auth( ZOPLNT, ZIPLNT, ZIPLNT = '1020') ;                     
+                       
+                    Plant = '1020';
+}

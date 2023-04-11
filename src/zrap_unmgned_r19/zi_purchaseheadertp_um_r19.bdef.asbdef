@@ -1,0 +1,62 @@
+unmanaged implementation in class zbp_i_purchaseheadertp_um_r19 unique;
+strict ( 2 );
+
+define behavior for ZI_PurchaseHeaderTP_UM_R19 alias PurchaseHeader
+late numbering
+lock master
+authorization master ( instance )
+//etag master <field_name>
+{
+  create;
+  update;
+  delete;
+  association _PoItems { create; }
+  field ( readonly ) PoOrder;
+
+  mapping for zpoheader_db_r19
+  {
+    PoOrder = po_order;
+    PoDesc  = po_desc;
+    PoType  = po_type;
+    CompCode = comp_code;
+    PoOrg = po_org;
+    PurchaseStatus = po_status;
+    Supplier = supplier;
+    Imageurl = imageurl;
+    CreateBy = create_by;
+    CreatedDateTime = created_date_time;
+    ChangedDateTime = changed_date_time;
+    LocalLastChangedBy = local_last_changed_by;
+    local_last_changed_at = local_last_changed_at;
+    local_last_changed_at1 = local_last_changed_at1;
+  }
+}
+
+define behavior for ZI_PurchaseItemTP_UM_R19 alias PurchaseItem
+late numbering
+lock dependent by _PoHeader
+authorization dependent by _PoHeader
+//etag master <field_name>
+{
+  create;
+  update;
+  delete;
+  field ( readonly ) PoOrder, PoItem;
+  association _PoHeader;
+
+  mapping for ZPOITEMS_DB_R19
+  {
+    PoOrder = po_order;
+    PoItem  = po_item;
+    ShortText = short_text;
+    Material = material;
+    Plant = plant;
+    MatGroup = mat_group;
+    OrderQunt = order_qunt;
+    OrderUnit = order_unit;
+    ProductPrice = product_price;
+    PriceUnit = price_unit;
+    LocalLastChangedBy = local_last_changed_by;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+}

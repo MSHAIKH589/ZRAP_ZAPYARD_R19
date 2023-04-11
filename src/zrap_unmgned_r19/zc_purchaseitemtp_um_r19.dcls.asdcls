@@ -1,0 +1,11 @@
+@EndUserText.label: 'Plant Restriction'
+@MappingRole: true
+define role ZC_PURCHASEITEMTP_UM_R19 {
+    grant
+        select
+            on
+                ZC_PURCHASEITEMTP_UM_R19
+                    where
+                        inheriting conditions from entity ZI_PurchaseItemTP_UM_R19;
+                        
+}

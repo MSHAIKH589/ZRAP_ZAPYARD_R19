@@ -1,0 +1,8 @@
+@EndUserText.label: 'Service Definition PO'
+define service ZSD_PoCreate_R19 {
+  expose ZC_PurchaseHeaderDet_R19 as PurchaseOrders;
+  expose ZC_PurchaseItemDet_R19 as PurchaseItems;
+  expose ZC_SUPPLIER_R19 as Supplier;
+  expose ZC_PURCHASESTATUS_R19 as OrderStatus;
+  expose ZC_ORDERTYPE_R19 as OrderType;
+}

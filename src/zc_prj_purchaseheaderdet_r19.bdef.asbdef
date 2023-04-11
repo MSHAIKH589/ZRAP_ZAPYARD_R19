@@ -1,0 +1,29 @@
+projection;
+strict ( 2 );
+use draft;
+
+define behavior for ZC_PRJ_PURCHASEHEADERDET_R19 alias PurchaseHeader
+{
+  use create;
+  use update;
+  use delete;
+
+  use association _PoItems { create; with draft; }
+
+  use action Copy;
+  use action WithdrawStatus;
+
+  use action Edit;
+  use action Resume;
+  use action Discard;
+  use action Activate;
+  use action Prepare;
+}
+
+define behavior for ZC_PRJ_PURCHASEITEMDET_R19 alias PurchaseItem
+{
+  use update;
+  use delete;
+
+  use association _PoHeader { with draft; }
+}

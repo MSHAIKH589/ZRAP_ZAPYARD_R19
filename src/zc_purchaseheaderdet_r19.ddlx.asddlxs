@@ -1,0 +1,80 @@
+@Metadata.layer: #CORE
+@UI.headerInfo: {
+    typeName: 'Purchase Order',
+    typeNamePlural: 'Purchase Orders',
+    imageUrl: 'Imageurl',
+    title: {
+    type: #STANDARD,
+    value: 'PoDesc'
+},
+description: {
+    type: #STANDARD,
+    label: 'Manage Purchase Orders',
+    value: 'PoType'
+}
+}
+annotate view ZC_PurchaseHeaderDet_R19
+    with 
+{
+//    @UI.facet: [{ label: 'Supplier' , type: #CONTACT_REFERENCE, targetQualifier: '_Supplier', purpose:#STANDARD }]  
+    @UI.facet: [{ id: 'Collection',
+                  type: #COLLECTION,
+                  purpose: #STANDARD,
+                  label: 'General Information'
+     },
+     { id: 'BasicD', type: #FIELDGROUP_REFERENCE, position: 10, parentId: 'Collection', targetQualifier: 'BasicData', label: 'Basic Data', purpose: #STANDARD },
+     { id: 'OrgD', type: #FIELDGROUP_REFERENCE, position: 20, parentId: 'Collection', targetQualifier: 'OrgData', label: 'Org Data', purpose: #STANDARD },
+     { id: 'Pitems', type: #LINEITEM_REFERENCE, purpose: #STANDARD, label: 'Purchase Items', position: 20, targetElement: '_PoItems' },
+     { id: 'Supl', type: #IDENTIFICATION_REFERENCE, purpose: #STANDARD, label: 'Supplier Details', position: 30, targetElement: '_Supplier' },
+     { id: 'Hdr1', type: #DATAPOINT_REFERENCE, purpose: #HEADER, position: 10, targetQualifier: 'Date' },
+     { id: 'Hdr2', type: #DATAPOINT_REFERENCE, purpose: #HEADER, position: 20, targetQualifier: 'Status' },
+     { id: 'Hdr3', type: #DATAPOINT_REFERENCE, purpose: #HEADER, position: 30, targetQualifier: 'OP' }]  
+    @UI.lineItem: [{ position: 10 },
+                   { position: 10, dataAction: 'Copy', type: #FOR_ACTION, label: 'Copy' },
+                   { position: 20, dataAction: 'WithdrawStatus', type: #FOR_ACTION, label: 'Withdraw Status' }]
+    @UI.selectionField: [{ position: 10  }]
+    @UI.fieldGroup: [{ position: 10, qualifier: 'BasicData' }]
+    PoOrder;
+    @UI.lineItem: [{ position: 20 }]
+    @UI.fieldGroup: [{ position: 20, label: 'Description', qualifier: 'BasicData' }]
+    PoDesc;
+    @UI.lineItem: [{ position: 30 }]
+    @UI.dataPoint: {
+        qualifier: 'OP',
+        title: 'Overall Price'
+    }
+    PurchaseTotalPrice;
+    @UI.lineItem: [{ position: 40 }]
+    @UI.selectionField: [{ position: 20  }]
+    @UI.fieldGroup: [{ position: 30, qualifier: 'BasicData' }]
+    PoType;
+    @UI.lineItem: [{ position: 50 }]
+    @UI.fieldGroup: [{ position: 10, label: 'Company Code', qualifier: 'OrgData' }]
+    CompCode;
+    @UI.lineItem: [{ position: 60 }]
+    @UI.fieldGroup: [{ position: 20, label: 'Po Organization', qualifier: 'OrgData' }]
+    PoOrg;
+    @UI.lineItem: [{ position: 70, criticality: 'CriticalityValue', importance: #HIGH }]
+    @UI.dataPoint: {
+        qualifier: 'Status',
+        title: 'Status', criticality: 'CriticalityValue'
+    }
+    @UI.fieldGroup: [{ position: 40, label: 'Order Status', qualifier: 'BasicData' }]
+    PurchaseStatus;
+    @UI.lineItem: [{ position: 80 , label: 'Supplier', importance: #HIGH, type: #AS_CONTACT , value: '_Supplier'}]
+    @UI.selectionField: [{ position: 30  }]
+    Supplier;
+//    @UI.lineItem: [{ position: 90 }]
+//    Imageurl;    
+    //CreateBy;
+    @UI.lineItem: [{ position: 90 }]
+    @UI.dataPoint: {
+        qualifier: 'Date',
+        title: 'Creation Date'
+    }
+    CreatedDateTime;
+    //ChangedDateTime;
+    //LocalLastChangedBy;
+
+    
+}
